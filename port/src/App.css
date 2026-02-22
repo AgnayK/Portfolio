@@ -1,0 +1,805 @@
+/* ================= GLOBAL ================= */
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #000;
+  color: #fff;
+  font-family: "Georgia", serif;
+  overflow-x: hidden;
+}
+/* ================= HEADER ================= */
+.header {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  
+}
+.nav-icon {
+  display: none;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 28px;
+  margin: 20px 20px 0 0;
+  flex-wrap: wrap;
+}
+
+.nav-links li {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* ================= HERO STAGE ================= */
+/* ================= HERO STAGE ================= */
+.content {
+  min-height: 100vh;
+  position: relative;
+  padding: 0 8%;
+}
+
+/* ================= HERO TEXT ================= */
+/* ================= HERO TEXT ================= */
+.hero-text {
+  position: absolute;
+  left: 150px;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 520px;
+
+
+}
+
+
+.hero-text::before {
+  content: "";
+  position: absolute;
+  left: -80px;          /* extends slightly outside text */
+  top: 0;
+  width: 160px;         /* shade width */
+  height: 100%;
+
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.85),
+    rgba(0,0,0,0.4),
+    rgba(0,0,0,0)
+  );
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.hero-text h1 {
+  font-size: 80px;
+  font-weight: 1000;
+  line-height: 1.1;
+  margin-bottom: 30px;
+}
+
+/* ================= ABOUT ME ================= */
+.about-me {
+  position: absolute;
+  right: 150px;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 600px;
+}
+
+.hero-text {
+  opacity: 1;
+  transition: opacity 0.3s ease 0.4s;
+}
+.hero-text.fade-out {
+  opacity: 0;
+}
+
+.about-me {
+  opacity: 0;
+  transition: opacity 0.3s ease 0.4s;
+}
+.about-me.show {
+  opacity: 1;
+}
+
+
+.about-me h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 64px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.about-me p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #ddd;
+}
+
+/* ================= PROFILE IMAGE (ONLY ANIMATION) ================= */
+/* ================= IMAGE POSITION LOGIC ================= */
+
+.profile-wrapper {
+  position: absolute;
+  top: 50%;
+  right: 150px;
+  transform: translateY(-50%) translateX(0);
+  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.profile-wrapper.move-left {
+  transform: translateY(-50%) translateX(-920px);
+}
+
+
+.page-fade {
+  opacity: 1;              /* visible immediately */
+}
+
+.page-fade.show {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ================= BUTTON ================= */
+.role-btn {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 12px 40px;
+  border-radius: 30px;
+  font-size: 16px;
+}
+
+/* ================= ABOUT ME (STATIC, REVEALED) ================= */
+
+/* ================= PROFILE IMAGE (ONLY MOVING ELEMENT) ================= */
+
+
+/* ================= IMAGE OVAL ================= */
+.inclined-oval {
+  margin-top: 100px;
+  width: 260px;
+  height: 450px;
+  border-radius: 50%;
+  overflow: hidden;
+  transform: rotate(18deg);
+  position: relative;
+}
+
+/* ================= IMAGE GLOW ================= */
+.inclined-oval::after {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.08),
+    transparent 70%
+  );
+  filter: blur(45px);
+  z-index: -1;
+}
+
+/* ================= IMAGE ================= */
+.inclined-oval img {
+  width: 140%;
+  height: 140%;
+  object-fit: cover;
+  transform: rotate(-18deg) scale(1.15)
+    translateX(38px) translateY(30px);
+}
+
+/* ================= NAME + GLOW ================= */
+.name-glow {
+  position: relative;
+  text-align: center;
+}
+
+.name-glow h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 70px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.name-glow::before {
+  content: "";
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  width: 380px;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 240, 220, 0.45),
+    rgba(255, 240, 220, 0.25),
+    transparent 78%
+  );
+  filter: blur(50px);
+  z-index: 1;
+}
+
+/* ================= WORKS PAGE ================= */
+
+.works-page {
+
+  padding-top: 50px;
+  overflow: visible;
+}
+
+/* Title */
+.works-page h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 64px;
+  font-weight: 600;
+}
+
+/* ================= CAROUSEL ================= */
+
+
+/* ================= NAV BUTTONS ================= */
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 64px;
+  font-weight: 200;
+  cursor: pointer;
+  z-index: 20;
+  opacity: 0.4;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nav:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav.left {
+  left: 60px;
+}
+
+.nav.right {
+  right: 60px;
+}
+/* ================= CIRCULAR WORKS ================= */
+
+.circular-carousel {
+  position: relative;
+  width: 100%;
+  height: 350px;   /* ⬅️ increased */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Cards */
+.circle-card {
+   overflow: visible;
+  position: absolute;
+  width: 350px;
+  height: 200px;
+  background: #0d0d0d;
+  border-radius: 22px;
+
+
+  transition:
+    transform 0.35s ease-out,
+    opacity 0.4s ease,
+    filter 0.4s ease;
+
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+}
+
+
+/* Image */
+.circle-card img {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+.circle-card p {
+  position: absolute;
+  left: 20px;
+
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  color: #fff;
+  z-index: 5;
+
+  text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+}
+.desc-box {
+  position: absolute;
+  width: 900px;              /* same width as card or slightly wider */
+  left: 20%;                 /* center horizontally */
+  top: 620px; 
+   text-align:center;              /* distance below the card, adjust if needed */
+
+  
+
+  color: white;
+  font-size: 18px;
+  line-height: 1.6;
+
+  animation: fadeUp 0.35s ease forwards;
+}
+
+/* Animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= CERTIFICATIONS PAGE ================= */
+
+.cert-page {
+  padding-top: 50px;
+  overflow: visible;
+}
+
+/* SAME heading style as Works */
+.cert-page h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 64px;
+  font-weight: 600;
+}
+
+/* Grid */
+.cert-grid {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+/* Card */
+.cert-card {
+  background: #0d0d0d;
+  border-radius: 22px;
+  overflow: hidden;
+  text-decoration: none;
+  color: white;
+
+  box-shadow: 0 30px 80px rgba(0,0,0,0.85);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.cert-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.95);
+}
+
+/* Image */
+.cert-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Title */
+.cert-card p {
+  padding: 18px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.cert-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.cert-modal-content {
+  position: relative;
+  max-width: 80%;
+  max-height: 80%;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.cert-modal-content img {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 16px;
+}
+.cert-modal-content p {
+  color: white;
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.close-btn {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: white;
+  color: black;
+  font-size: 18px;
+  border-radius: 50%;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* ================= CONTACT PAGE ================= */
+/* ================= CONTACT PAGE ================= */
+
+.contact-page {
+padding-top: 50px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;   /* ✅ align from top */
+  gap: 100px;
+}
+
+
+/* LEFT SIDE */
+.contact-left {
+  flex: 1;
+  max-width: 600px;
+}
+
+/* Big cinematic heading */
+.contact-left h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 64px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+}
+
+/* Description */
+.contact-desc {
+  font-size: 20px;
+  line-height: 1.7;
+  margin-bottom: 50px;
+  opacity: 0.85;
+}
+
+/* Contact list container */
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+/* Each contact row */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 20px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effect */
+.contact-item:hover {
+  transform: translateX(8px);
+  opacity: 0.8;
+}
+
+/* Icons */
+.contact-item svg {
+  font-size: 22px;
+  min-width: 22px;
+}
+
+/* Links */
+.contact-item a {
+  text-decoration: none;
+  color: white;
+  transition: opacity 0.3s ease;
+}
+
+.contact-item a:hover {
+  opacity: 0.6;
+}
+
+
+/* ================= RIGHT SIDE ================= */
+
+.contact-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1024px) {
+  .contact-page {
+    gap: 40px;
+  }
+
+  .contact-left h2 {
+    font-size: 56px;
+  }
+}
+
+/* ================= MOBILE REDESIGN ================= */
+@media (max-width: 768px) {
+
+  html, body {
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ================= MOBILE NAVBAR ================= */
+
+  .header {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    background: #000;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    z-index: 2000;
+  }
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;   /* equal edge alignment */
+  align-items: center;
+  width: 100%;
+  padding: 10px 15px;                 /* equal left & right margin */
+  box-sizing: border-box;
+}
+  /* Hide desktop text */
+  .nav-text {
+    display: none;
+  }
+
+  /* Show icons */
+  .nav-icon {
+      display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;           /* important for equal spacing */
+  opacity: 0.85;
+  transition: 0.3s ease;
+    cursor: pointer;
+  }
+.nav-icon svg {
+  width: 27px;
+  height: 27px;
+}
+  .nav-icon:hover {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  /* ================= CONTENT ================= */
+
+  .content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    padding: 60px 6% 90px; /* bottom padding for navbar */
+    box-sizing: border-box;
+
+  }
+
+  /* Reset absolute positioning */
+  .hero-text,
+  .about-me,
+  .profile-wrapper {
+    position: static;
+    transform: none !important;
+    right: auto;
+    left: auto;
+    top: auto;
+  }
+
+  /* ================= HERO ================= */
+
+  .hero-text {
+    max-width: 100%;
+    margin-bottom: 40px;
+  }
+
+  .hero-text::before {
+    display: none;
+  }
+
+  .hero-text h1 {
+    font-size: 42px;
+    line-height: 1.2;
+  }
+
+  /* ================= ABOUT ================= */
+
+  .about-me {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .about-me h2 {
+    font-size: 40px;
+  }
+
+  .about-me p {
+    font-size: 16px;
+  }
+
+  /* ================= PROFILE ================= */
+
+  .profile-wrapper {
+    margin-top: 20px;
+    transition: none;
+  }
+
+  .profile-wrapper.move-left {
+    transform: none !important;
+  }
+
+  .inclined-oval {
+    width: 200px;
+    height: 330px;
+    margin-top: 10px;
+    transform: rotate(12deg);
+  }
+
+  .inclined-oval img {
+    transform: rotate(-12deg) scale(1.1)
+      translateX(20px) translateY(15px);
+  }
+
+  .name-glow h2 {
+    font-size: 36px;
+  }
+
+  .name-glow::before {
+    width: 240px;
+    height: 120px;
+    filter: blur(30px);
+  }
+
+  /* ================= WORKS ================= */
+
+  .works-page h2,
+  .cert-page h2,
+  .contact-left h2 {
+    font-size: 40px;
+  }
+
+  .circular-carousel {
+    position: relative;
+    height: 280px;
+    overflow: visible;
+  }
+
+  .circle-card {
+    width: 230px;
+    height: 140px;
+  }
+
+  .circle-card p {
+    font-size: 15px;
+  }
+
+  .desc-box {
+    position: static;
+    width: 100%;
+    margin-top: 30px;
+    font-size: 14px;
+    line-height: 1.8;
+    text-align: justify;
+  }
+
+  .nav.left {
+    left: 8px;
+  }
+
+  .nav.right {
+    right: 8px;
+  }
+
+  /* ================= CERTIFICATIONS ================= */
+
+  .cert-page {
+    width: 100%;
+    padding: 20px 0 40px;
+  }
+
+  .cert-page h2 {
+    font-size: 32px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .cert-card {
+    width: 100%;
+  }
+
+  .cert-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  /* ================= CONTACT ================= */
+
+  .contact-page {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .contact-left {
+    width: 100%;
+  }
+
+  .contact-desc {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .contact-item {
+    font-size: 16px;
+    margin: -1px 0;
+  }
+}
