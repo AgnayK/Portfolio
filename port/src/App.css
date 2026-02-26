@@ -556,15 +556,6 @@ padding-top: 50px;
 
 /* ================= RESPONSIVE ================= */
 
-@media (max-width: 1024px) {
-  .contact-page {
-    gap: 40px;
-  }
-
-  .contact-left h2 {
-    font-size: 56px;
-  }
-}
 
 /* ================= MOBILE REDESIGN ================= */
 @media (max-width: 768px) {
@@ -618,6 +609,10 @@ padding-top: 50px;
     opacity: 1;
     transform: scale(1.2);
   }
+.nav-icon:hover {
+  opacity: 1;
+  transform: scale(1.25);
+}
 
   /* ================= CONTENT ================= */
 
@@ -800,6 +795,206 @@ padding-top: 50px;
 
   .contact-item {
     font-size: 16px;
+    margin: -1px 0;
+  }
+}
+/* ================= TABLET DESIGN (768px - 1024px) ================= */
+/* ================= TABLET LARGE DESIGN (769px - 1024px) ================= */
+/* ================= TABLET LARGE DESIGN (769px - 1024px) ================= */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  html, body {
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Bottom Navbar */
+  .header {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    background: #000;
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    z-index: 2000;
+  }
+
+  .nav-text {
+    display: none;
+  }
+
+/* Tablet Navbar Pop Effect */
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 18px 10px 10px 0;
+  box-sizing: border-box;
+}
+
+.nav-icon {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.85;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-icon svg {
+  width: 36px;
+  height: 36px;
+  transition: all 0.3s ease;
+}
+
+/* Hover Pop Effect */
+.nav-icon:hover {
+  opacity: 1;
+  transform: scale(1.25);
+}
+
+/* Optional Glow on Hover */
+.nav-icon:hover svg {
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.6));
+}
+  /* ================= CONTENT ================= */
+
+  .content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 10% 100px;
+    box-sizing: border-box;
+  }
+
+  .hero-text,
+  .about-me,
+  .profile-wrapper {
+    position: static;
+    transform: none !important;
+  }
+
+  /* ================= HERO ================= */
+
+  .hero-text {
+    max-width: 850px;
+    margin-bottom: 80px;
+  }
+
+  .hero-text h1 {
+    font-size: 72px;   /* 🔥 Much bigger */
+    line-height: 1.15;
+  }
+
+  /* ================= ABOUT ================= */
+
+  .about-me {
+    max-width: 900px;
+    margin-bottom: 70px;
+  }
+
+  .about-me h2 {
+    font-size: 60px;
+  }
+
+  .about-me p {
+    font-size: 22px;
+    line-height: 1.8;
+  }
+
+  /* ================= PROFILE ================= */
+
+  .profile-wrapper {
+    margin-top: 50px;
+  }
+
+  .inclined-oval {
+    width: 320px;
+    height: 520px;
+    transform: rotate(15deg);
+  }
+
+  .inclined-oval img {
+    transform: rotate(-15deg) scale(1.2)
+      translateX(30px) translateY(25px);
+  }
+
+  .name-glow h2 {
+    font-size: 60px;
+  }
+
+  .name-glow::before {
+    width: 380px;
+    height: 200px;
+    filter: blur(55px);
+  }
+
+  /* ================= WORKS ================= */
+
+  .works-page h2,
+  .cert-page h2,
+  .contact-left h2 {
+    font-size: 60px;
+  }
+
+  .circular-carousel {
+    height: 400px;
+  }
+
+  .circle-card {
+    width: 380px;
+    height: 230px;
+  }
+
+  .circle-card p {
+    font-size: 22px;
+  }
+
+.desc-box {
+  position: static;
+  width: 95%;
+  margin-top: 50px;
+  margin-left: 15px;   /* 👈 moves right */
+  font-size: 25px;
+  line-height: 1.8;
+  text-align: justify;
+}
+  /* ================= CERTIFICATIONS ================= */
+
+  .cert-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+  }
+
+  .cert-card img {
+    height: 200px;
+  }
+
+  .cert-card p {
+    font-size: 20px;
+  }
+
+  /* ================= CONTACT ================= */
+
+  .contact-page {
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .contact-desc {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .contact-item {
+    font-size: 20px;
     margin: -1px 0;
   }
 }
