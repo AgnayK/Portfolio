@@ -23,24 +23,24 @@ import {
 import "./App.css";
 
 /* ================= HEADER ================= */
-function Header({ setPage }) {
+function Header({ setPage, page }) {
   return (
     <header className="header">
       <ul className="nav-links">
 
         {/* Desktop Text */}
-        <li className="nav-text" onClick={() => setPage("home")}>Home</li>
-        <li className="nav-text" onClick={() => setPage("about")}>About</li>
-        <li className="nav-text" onClick={() => setPage("works")}>My Works</li>
-        <li className="nav-text" onClick={() => setPage("certifications")}>Certifications</li>
-        <li className="nav-text" onClick={() => setPage("contact")}>Contact</li>
+        <li className={`nav-text ${page === "home" ? "active" : ""}`} onClick={() => setPage("home")}>Home</li>
+        <li className={`nav-text ${page === "about" ? "active" : ""}`} onClick={() => setPage("about")}>About</li>
+        <li className={`nav-text ${page === "works" ? "active" : ""}`} onClick={() => setPage("works")}>My Works</li>
+        <li className={`nav-text ${page === "certifications" ? "active" : ""}`} onClick={() => setPage("certifications")}>Certifications</li>
+        <li className={`nav-text ${page === "contact" ? "active" : ""}`} onClick={() => setPage("contact")}>Contact</li>
 
         {/* Mobile Icons */}
-        <li className="nav-icon" onClick={() => setPage("home")}><FaHome /></li>
-        <li className="nav-icon" onClick={() => setPage("about")}><FaUser /></li>
-        <li className="nav-icon" onClick={() => setPage("works")}><FaBriefcase /></li>
-        <li className="nav-icon" onClick={() => setPage("certifications")}><FaCertificate /></li>
-        <li className="nav-icon" onClick={() => setPage("contact")}><FaEnvelope /></li>
+        <li className={`nav-icon ${page === "home" ? "active" : ""}`} onClick={() => setPage("home")}><FaHome /></li>
+        <li className={`nav-icon ${page === "about" ? "active" : ""}`} onClick={() => setPage("about")}><FaUser /></li>
+        <li className={`nav-icon ${page === "works" ? "active" : ""}`} onClick={() => setPage("works")}><FaBriefcase /></li>
+        <li className={`nav-icon ${page === "certifications" ? "active" : ""}`} onClick={() => setPage("certifications")}><FaCertificate /></li>
+        <li className={`nav-icon ${page === "contact" ? "active" : ""}`} onClick={() => setPage("contact")}><FaEnvelope /></li>
 
       </ul>
     </header>
@@ -76,7 +76,7 @@ function Home({ page }) {
         My <br />
         Portfolio
       </h1>
-      <button className="role-btn">Software Developer</button>
+      <p className="role-tag">Software Developer</p>
     </div>
   );
 }
@@ -137,11 +137,10 @@ function WorksPage() {
 
   const total = works.length;
 
-  // 🔥 Proper responsive detection
+  // Proper responsive detection
   useEffect(() => {
     const handleResize = () =>
-  setIsMobile(window.innerWidth <= 1024);
-
+      setIsMobile(window.innerWidth <= 1024);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -161,7 +160,7 @@ function WorksPage() {
       <h2>My Works</h2>
 
       <div className="circular-carousel">
-        <button className="nav left" onClick={prev}>‹</button>
+        <button className="nav left" onClick={prev}>&lsaquo;</button>
 
         {works.map((work, index) => {
           const pos = getPosition(index);
@@ -182,7 +181,7 @@ function WorksPage() {
           return (
             <div
               key={work.id}
-              className="circle-card"
+              className={`circle-card ${isCenter ? "is-center" : ""}`}
               onMouseEnter={() =>
                 !isMobile && isCenter && setHovered(index)
               }
@@ -202,10 +201,8 @@ function WorksPage() {
           );
         })}
 
-        <button className="nav right" onClick={next}>›</button>
+        <button className="nav right" onClick={next}>&rsaquo;</button>
       </div>
-
-      {/* 🔥 DESCRIPTION LOGIC */}
 
       {isMobile ? (
         <motion.div
@@ -262,18 +259,14 @@ function CertificationsPage() {
         ))}
       </div>
 
-      {/* 🔥 MODAL */}
       {selectedCert && (
         <div className="cert-modal" onClick={() => setSelectedCert(null)}>
           <div
             className="cert-modal-content"
             onClick={(e) => e.stopPropagation()}
           >
-            <span
-              className="close-btn"
-              onClick={() => setSelectedCert(null)}
-            >
-              ✕
+            <span className="close-btn" onClick={() => setSelectedCert(null)}>
+              X
             </span>
             <img src={selectedCert.img} alt={selectedCert.title} />
             <p>{selectedCert.title}</p>
@@ -283,7 +276,6 @@ function CertificationsPage() {
     </div>
   );
 }
-
 
 
 
@@ -315,7 +307,7 @@ function ContactPage() {
 
 
 
-          {/* Address → Google Maps */}
+          {/* Address ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ Google Maps */}
           <div className="contact-item">
             <FaMapMarkerAlt />
             <a
@@ -392,7 +384,7 @@ export default function App() {
         </>
       );
     }
-    // All other transitions → fade simultaneously
+    // All other transitions ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ fade simultaneously
     switch (page) {
       case "home":
         return <Home page={page} key="home" />;
@@ -411,7 +403,7 @@ export default function App() {
 
  return (
   <>
-    <Header setPage={handleSetPage} />
+    <Header setPage={handleSetPage} page={page} />
 
     <main className="content">
 
@@ -441,3 +433,8 @@ export default function App() {
 );
 
 }
+
+
+
+
+
