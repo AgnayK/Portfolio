@@ -8,7 +8,7 @@ import buTrack from "./assets/Bu-Track.png"
 import collegeImg from "./assets/college.png"
 import akgImg from "./assets/akg.png"
 import igpsImg from "./assets/igps.png"
-import agiPhoto from "./assets/agi_photo.jpg";
+import agiPhoto from "./assets/agi_photo_optimized.jpg";
 import mini from "./assets/mini.png";
 import music from "./assets/music.png";
 import rudra from "./assets/rudra.jpg";
@@ -66,7 +66,13 @@ function ProfileImage({ page }) {
       }`}
     >
       <div className="inclined-oval">
-        <img src={agiPhoto} alt="AGNAY K" />
+        <img
+          src={agiPhoto}
+          alt="AGNAY K"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
       </div>
       <div className="name-glow">
         <h2>AGNAY K</h2>
@@ -112,7 +118,12 @@ function ExperiencePage() {
       <div className="experience-card">
         <div className="experience-layout">
           <div className="experience-visual">
-            <img src={minutes} alt="Minutes Tracker System Government Project" />
+            <img
+              src={minutes}
+              alt="Minutes Tracker System Government Project"
+              loading="lazy"
+              decoding="async"
+            />
             <p>Minutes Tracker System (Govt Project)</p>
           </div>
 
@@ -149,21 +160,39 @@ function EducationPage() {
           <h3>College of Engineering Thalassery</h3>
           <p>B.Tech in Computer Science</p>
           <span>CGPA: 8.13 | Graduated: May 2026</span>
-          <img src={collegeImg} alt="College of Engineering Thalassery" className="edu-image" />
+          <img
+            src={collegeImg}
+            alt="College of Engineering Thalassery"
+            className="edu-image"
+            loading="lazy"
+            decoding="async"
+          />
         </article>
 
         <article className="edu-card">
           <h3>AKGM GHSS, Pinarayi</h3>
           <p>Higher Secondary</p>
           <span>Score: 96% | Year: 2022</span>
-          <img src={akgImg} alt="AKGM GHSS Pinarayi" className="edu-image" />
+          <img
+            src={akgImg}
+            alt="AKGM GHSS Pinarayi"
+            className="edu-image"
+            loading="lazy"
+            decoding="async"
+          />
         </article>
 
         <article className="edu-card">
           <h3>Indira Gandhi Public School, Mambaram</h3>
           <p>SSLC</p>
           <span>Score: 92.4% | Year: 2020</span>
-          <img src={igpsImg} alt="Indira Gandhi Public School Mambaram" className="edu-image" />
+          <img
+            src={igpsImg}
+            alt="Indira Gandhi Public School Mambaram"
+            className="edu-image"
+            loading="lazy"
+            decoding="async"
+          />
         </article>
       </div>
     </div>
@@ -311,7 +340,13 @@ function WorksPage() {
                 zIndex: 10 - distance,
               }}
             >
-              <img src={work.img} alt={work.title} />
+              <img
+                src={work.img}
+                alt={work.title}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
+                decoding="async"
+              />
               <p className="card-title">{work.title}</p>
             </div>
           );
@@ -369,7 +404,7 @@ function CertificationsPage() {
             className="cert-card"
             onClick={() => setSelectedCert(cert)}
           >
-            <img src={cert.img} alt={cert.title} />
+            <img src={cert.img} alt={cert.title} loading="lazy" decoding="async" />
             <p>{cert.title}</p>
           </div>
         ))}
@@ -384,7 +419,7 @@ function CertificationsPage() {
             <span className="close-btn" onClick={() => setSelectedCert(null)}>
               X
             </span>
-            <img src={selectedCert.img} alt={selectedCert.title} />
+            <img src={selectedCert.img} alt={selectedCert.title} loading="eager" decoding="async" />
             <p>{selectedCert.title}</p>
           </div>
         </div>
@@ -737,6 +772,7 @@ export default function App() {
 );
 
 }
+
 
 
 
