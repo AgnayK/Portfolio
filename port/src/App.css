@@ -16,17 +16,8 @@ body {
   z-index: 1000;
   
 }
-.nav-icon {
+.mobile-nav-orbit {
   display: none;
-}
-
-.nav-icon.active {
-  opacity: 1;
-  transform: scale(1.18);
-}
-
-.nav-icon.active svg {
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.65));
 }
 .nav-links {
   list-style: none;
@@ -75,6 +66,13 @@ body {
 
 .nav-text.active::after {
   transform: scaleX(1);
+}
+
+.mobile-nav-chip,
+.mobile-nav-arrow {
+  border: 0;
+  background: transparent;
+  color: #fff;
 }
 
 @keyframes navTextShimmer {
@@ -1021,44 +1019,70 @@ padding-top: 50px;
   }
 
 .nav-links {
-  display: flex;
-  justify-content: space-between;   /* equal edge alignment */
-  align-items: center;
-  flex-wrap: nowrap;
-  width: 100%;
-  margin: 0;
-  gap: 0;
-  padding: 10px 8px;                 /* tighter so 7 icons fit on small phones */
-  box-sizing: border-box;
+  display: none;
 }
-  /* Hide desktop text */
-  .nav-text {
-    display: none;
+
+  .mobile-nav-orbit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    width: 100%;
+    padding: 8px 8px 6px;
+    box-sizing: border-box;
   }
 
-  /* Show icons */
-  .nav-icon {
-      display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;           /* important for equal spacing */
-  min-width: 0;
-  opacity: 0.85;
-  transition: 0.3s ease;
+  .mobile-nav-arrow {
+    width: 22px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    opacity: 0.82;
     cursor: pointer;
+    font-size: 12px;
   }
-.nav-icon svg {
-  width: 20px;
-  height: 20px;
-}
-  .nav-icon:hover {
+
+  .mobile-nav-chip {
+    min-width: 54px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    cursor: pointer;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+  }
+
+  .mobile-nav-chip svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .mobile-nav-chip span {
+    font-size: 8px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .mobile-nav-chip.far {
+    opacity: 0.4;
+    transform: scale(0.84);
+  }
+
+  .mobile-nav-chip.near {
+    opacity: 0.72;
+    transform: scale(0.93);
+  }
+
+  .mobile-nav-chip.active {
     opacity: 1;
-    transform: scale(1.2);
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 14px rgba(255,255,255,0.16);
   }
-.nav-icon:hover {
-  opacity: 1;
-  transform: scale(1.25);
-}
 
   /* ================= CONTENT ================= */
 
@@ -1388,43 +1412,70 @@ padding-top: 50px;
 /* Tablet Navbar Pop Effect */
 
 .nav-links {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  width: 100%;
-  margin: 0;
-  gap: 0;
-  padding: 18px 8px 10px 8px;
-  box-sizing: border-box;
+  display: none;
 }
 
-.nav-icon {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.85;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
+  .mobile-nav-orbit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    padding: 10px 14px 8px;
+    box-sizing: border-box;
+  }
 
-.nav-icon svg {
-  width: 28px;
-  height: 28px;
-  transition: all 0.3s ease;
-}
+  .mobile-nav-arrow {
+    width: 30px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    opacity: 0.85;
+    cursor: pointer;
+    font-size: 16px;
+  }
 
-/* Hover Pop Effect */
-.nav-icon:hover {
-  opacity: 1;
-  transform: scale(1.25);
-}
+  .mobile-nav-chip {
+    min-width: 78px;
+    height: 62px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+  }
 
-/* Optional Glow on Hover */
-.nav-icon:hover svg {
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.6));
-}
+  .mobile-nav-chip svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mobile-nav-chip span {
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .mobile-nav-chip.far {
+    opacity: 0.44;
+    transform: scale(0.86);
+  }
+
+  .mobile-nav-chip.near {
+    opacity: 0.74;
+    transform: scale(0.94);
+  }
+
+  .mobile-nav-chip.active {
+    opacity: 1;
+    transform: scale(1.06);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 16px rgba(255,255,255,0.18);
+  }
   /* ================= CONTENT ================= */
 
   .content {

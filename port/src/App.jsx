@@ -20,6 +20,8 @@ import {
   FaBriefcase, 
   FaCertificate, 
   FaEnvelope,
+  FaChevronLeft,
+  FaChevronRight,
   FaMapMarkerAlt,
   FaLinkedin,
   FaGithub
@@ -29,29 +31,62 @@ import "./App.css";
 
 /* ================= HEADER ================= */
 function Header({ setPage, page }) {
+  const navItems = [
+    { key: "home", label: "Home", Icon: FaHome },
+    { key: "about", label: "About", Icon: FaUser },
+    { key: "experience", label: "Experience", Icon: FaBuilding },
+    { key: "education", label: "Education", Icon: FaGraduationCap },
+    { key: "works", label: "My Works", Icon: FaBriefcase },
+    { key: "certifications", label: "Certifications", Icon: FaCertificate },
+    { key: "contact", label: "Contact", Icon: FaEnvelope },
+  ];
+
+  const total = navItems.length;
+  const currentIndex = navItems.findIndex((item) => item.key === page);
+  const safeIndex = currentIndex === -1 ? 0 : currentIndex;
+  const getItem = (offset) => navItems[(safeIndex + offset + total) % total];
+  const renderMobileChip = (offset) => {
+    const item = getItem(offset);
+    const ChipIcon = item.Icon;
+    const distance = Math.abs(offset);
+    const positionClass =
+      distance === 0 ? "center" : distance === 1 ? "near" : "far";
+
+    return (
+      <button
+        key={`${offset}-${item.key}`}
+        className={`mobile-nav-chip ${positionClass} ${distance === 0 ? "active" : ""}`}
+        onClick={() => setPage(item.key)}
+      >
+        <ChipIcon />
+        <span>{item.label}</span>
+      </button>
+    );
+  };
+
   return (
     <header className="header">
       <ul className="nav-links">
-
-        {/* Desktop Text */}
-        <li className={`nav-text ${page === "home" ? "active" : ""}`} onClick={() => setPage("home")}>Home</li>
-        <li className={`nav-text ${page === "about" ? "active" : ""}`} onClick={() => setPage("about")}>About</li>
-        <li className={`nav-text ${page === "experience" ? "active" : ""}`} onClick={() => setPage("experience")}>Experience</li>
-        <li className={`nav-text ${page === "education" ? "active" : ""}`} onClick={() => setPage("education")}>Education</li>
-        <li className={`nav-text ${page === "works" ? "active" : ""}`} onClick={() => setPage("works")}>My Works</li>
-        <li className={`nav-text ${page === "certifications" ? "active" : ""}`} onClick={() => setPage("certifications")}>Certifications</li>
-        <li className={`nav-text ${page === "contact" ? "active" : ""}`} onClick={() => setPage("contact")}>Contact</li>
-
-        {/* Mobile Icons */}
-        <li className={`nav-icon ${page === "home" ? "active" : ""}`} onClick={() => setPage("home")}><FaHome /></li>
-        <li className={`nav-icon ${page === "about" ? "active" : ""}`} onClick={() => setPage("about")}><FaUser /></li>
-        <li className={`nav-icon ${page === "experience" ? "active" : ""}`} onClick={() => setPage("experience")}><FaBuilding /></li>
-        <li className={`nav-icon ${page === "education" ? "active" : ""}`} onClick={() => setPage("education")}><FaGraduationCap /></li>
-        <li className={`nav-icon ${page === "works" ? "active" : ""}`} onClick={() => setPage("works")}><FaBriefcase /></li>
-        <li className={`nav-icon ${page === "certifications" ? "active" : ""}`} onClick={() => setPage("certifications")}><FaCertificate /></li>
-        <li className={`nav-icon ${page === "contact" ? "active" : ""}`} onClick={() => setPage("contact")}><FaEnvelope /></li>
-
+        {navItems.map((item) => (
+          <li
+            key={item.key}
+            className={`nav-text ${page === item.key ? "active" : ""}`}
+            onClick={() => setPage(item.key)}
+          >
+            {item.label}
+          </li>
+        ))}
       </ul>
+
+      <div className="mobile-nav-orbit">
+        <button className="mobile-nav-arrow" onClick={() => setPage(getItem(-1).key)}>
+          <FaChevronLeft />
+        </button>
+        {[-2, -1, 0, 1, 2].map((offset) => renderMobileChip(offset))}
+        <button className="mobile-nav-arrow" onClick={() => setPage(getItem(1).key)}>
+          <FaChevronRight />
+        </button>
+      </div>
     </header>
   );
 }
