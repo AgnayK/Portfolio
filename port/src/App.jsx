@@ -5,6 +5,7 @@ import AWS from "./assets/AWS.png"
 import DL from "./assets/DL.png"
 import minutes from "./assets/Minutes.png"
 import buTrack from "./assets/Bu-Track.png"
+import buTrackApp from "./assets/Bu-Track.app.jpeg"
 import collegeImg from "./assets/college.png"
 import akgImg from "./assets/akg.png"
 import igpsImg from "./assets/igps.png"
@@ -18,25 +19,37 @@ import {
   FaBuilding,
   FaGraduationCap,
   FaBriefcase, 
+  FaBookOpen,
   FaCertificate, 
   FaEnvelope,
   FaChevronLeft,
   FaChevronRight,
   FaMapMarkerAlt,
   FaLinkedin,
-  FaGithub
+  FaGithub,
+  FaInstagram
 } from "react-icons/fa";
 
 import "./App.css";
 
 /* ================= HEADER ================= */
 function Header({ setPage, page }) {
+  const desktopNavRef = useRef(null);
+  const desktopItemRefs = useRef({});
+  const [torchState, setTorchState] = useState({
+    left: 0,
+    top: 0,
+    beamWidth: 180,
+    beamHeight: 86,
+  });
+
   const navItems = [
     { key: "home", label: "Home", Icon: FaHome },
     { key: "about", label: "About", Icon: FaUser },
     { key: "experience", label: "Experience", Icon: FaBuilding },
     { key: "education", label: "Education", Icon: FaGraduationCap },
     { key: "works", label: "My Works", Icon: FaBriefcase },
+    { key: "case-studies", label: "Case Studies", Icon: FaBookOpen },
     { key: "certifications", label: "Certifications", Icon: FaCertificate },
     { key: "contact", label: "Contact", Icon: FaEnvelope },
   ];
@@ -45,6 +58,28 @@ function Header({ setPage, page }) {
   const currentIndex = navItems.findIndex((item) => item.key === page);
   const safeIndex = currentIndex === -1 ? 0 : currentIndex;
   const getItem = (offset) => navItems[(safeIndex + offset + total) % total];
+
+  useEffect(() => {
+    const updateTorch = () => {
+      const navEl = desktopNavRef.current;
+      const activeEl = desktopItemRefs.current[page];
+      if (!navEl || !activeEl) return;
+
+      const navRect = navEl.getBoundingClientRect();
+      const itemRect = activeEl.getBoundingClientRect();
+
+      setTorchState({
+        left: itemRect.left - navRect.left + itemRect.width / 2,
+        top: itemRect.bottom - navRect.top + 10,
+        beamWidth: Math.max(150, itemRect.width * 2.2),
+        beamHeight: itemRect.height + 54,
+      });
+    };
+
+    updateTorch();
+    window.addEventListener("resize", updateTorch);
+    return () => window.removeEventListener("resize", updateTorch);
+  }, [page]);
   const renderMobileChip = (offset) => {
     const item = getItem(offset);
     const ChipIcon = item.Icon;
@@ -66,16 +101,39 @@ function Header({ setPage, page }) {
 
   return (
     <header className="header">
-      <ul className="nav-links">
+      <ul className="nav-links" ref={desktopNavRef}>
         {navItems.map((item) => (
           <li
             key={item.key}
+            ref={(el) => {
+              desktopItemRefs.current[item.key] = el;
+            }}
             className={`nav-text ${page === item.key ? "active" : ""}`}
             onClick={() => setPage(item.key)}
           >
             {item.label}
           </li>
         ))}
+        <li
+          className="nav-torch-beam"
+          aria-hidden="true"
+          style={{
+            left: `${torchState.left}px`,
+            top: `${torchState.top}px`,
+            "--beam-width": `${torchState.beamWidth}px`,
+            "--beam-height": `${torchState.beamHeight}px`,
+          }}
+        />
+        <li
+          className="nav-torch"
+          aria-hidden="true"
+          style={{
+            left: `${torchState.left}px`,
+            top: `${torchState.top}px`,
+            "--beam-width": `${torchState.beamWidth}px`,
+            "--beam-height": `${torchState.beamHeight}px`,
+          }}
+        />
       </ul>
 
       <div className="mobile-nav-orbit">
@@ -141,45 +199,6 @@ function About({ page }) {
   <br /><br />
   My goal is to grow as a professional Full Stack Developer and contribute to impactful, real-world solutions.
 </p>
-    </div>
-  );
-}
-
-/* ================= EXPERIENCE ================= */
-function ExperiencePage() {
-  return (
-    <div className="experience-page">
-      <h2>Experience</h2>
-      <div className="experience-card">
-        <div className="experience-layout">
-          <div className="experience-visual">
-            <img
-              src={minutes}
-              alt="Minutes Tracker System Government Project"
-              loading="lazy"
-              decoding="async"
-            />
-            <p>Minutes Tracker System (Govt Project)</p>
-          </div>
-
-          <div className="experience-content">
-            <div className="experience-head">
-              <h3>Technical Contributor</h3>
-              <span>District Planning Office, Kannur</span>
-            </div>
-            <p className="experience-intro">
-              Worked on a government-focused digital platform to improve the way official
-              meeting workflows are recorded, followed up, and reviewed.
-            </p>
-            <ul>
-              <li>Developed a Minutes Tracker System to digitize and manage official meeting records.</li>
-              <li>Designed features for storing, retrieving, and organizing meeting minutes efficiently.</li>
-              <li>Implemented tracking of actions, deadlines, and updates from meetings.</li>
-              <li>Collaborated in a 4-member team to build and test the system.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
@@ -417,6 +436,228 @@ function WorksPage() {
   );
 }
 
+/* ================= CASE STUDIES ================= */
+const caseStudies = {
+  buTrack: {
+    key: "buTrack",
+    tabLabel: "Bu-Track",
+    title: "Bu-Track",
+    role: "Construction Vehicle Job Tracking App",
+    visual: "phone",
+    image: buTrackApp,
+    imageAlt: "Bu-Track mobile app preview",
+    overview:
+      "Bu-Track is a focused operations app for managing vehicle assignments, operator accountability, and live job progress in construction workflows.",
+    problem:
+      "Manual coordination across multiple active jobs made tracking slower and created gaps in visibility for supervisors.",
+    approach: [
+      "Enabled day-wise and job-wise tracking with clear status movement from assignment to completion.",
+      "Reduced coordination friction through better visibility for supervisors and field teams.",
+      "Built a cleaner project timeline view with structured work-history records.",
+    ],
+    outcome: [
+      "Faster dispatch and follow-up decisions during daily operations.",
+      "Improved accountability through clearer assignment-to-completion traceability.",
+      "Higher confidence in periodic reporting and status audits.",
+    ],
+    stack: "React, Django REST Framework, PostgreSQL",
+  },
+  ddcmts: {
+    key: "ddcmts",
+    tabLabel: "DDCMTS",
+    title: "DDCMTS (Govt Project)",
+    role: "District Planning Office Workflow System",
+    visual: "desktop",
+    image: minutes,
+    imageAlt: "DDCMTS desktop web application preview",
+    overview:
+      "DDCMTS digitalized district-level meeting-minutes management with role-based controls and a structured approval path.",
+    problem:
+      "Traditional minute handling lacked consistent traceability, making approvals and record tracking slower across departments.",
+    approach: [
+      "Streamlined meeting-minutes creation and review between multiple government roles.",
+      "Added better traceability across drafting, verification, and final approval stages.",
+      "Introduced clear stage-wise flow to reduce ambiguity in movement and ownership.",
+    ],
+    outcome: [
+      "Officially implemented in Kannur District Collectorate operations.",
+      "Improved reliability of official records and approval visibility.",
+      "Reduced friction in day-to-day administrative workflow handling.",
+    ],
+    stack: "React, Django, PostgreSQL",
+  },
+};
+
+function CaseStudiesPage() {
+  const [activeCase, setActiveCase] = useState("buTrack");
+  const current = caseStudies[activeCase];
+
+  return (
+    <div className="case-page">
+      <h2>Case Studies</h2>
+      <p className="case-lead">
+        Real projects, real constraints, and how I shaped the final product decisions.
+      </p>
+
+      <div className="case-layout">
+        <div className="case-visual-column">
+          {/*
+            Keep device visual style tied to the active case so we can
+            target DDCMTS desktop fitting behavior precisely in CSS.
+          */}
+          <div
+            key={current.key}
+            className={`case-device ${
+              current.visual === "phone"
+                ? "phone-device phone-reveal"
+                : "desktop-device desktop-reveal ddcmts-device"
+            }`}
+          >
+            <div className="device-screen">
+              <img src={current.image} alt={current.imageAlt} loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+
+        <div className="case-content-column">
+          <div className="case-tabs">
+            <button
+              className={`case-tab ${activeCase === "buTrack" ? "active" : ""}`}
+              onClick={() => setActiveCase("buTrack")}
+            >
+              Bu-Track
+            </button>
+            <button
+              className={`case-tab ${activeCase === "ddcmts" ? "active" : ""}`}
+              onClick={() => setActiveCase("ddcmts")}
+            >
+              DDCMTS
+            </button>
+          </div>
+
+          <article className="case-detail-card">
+            <div className="case-detail-head">
+              <h3>{current.title}</h3>
+              <span className="case-role">{current.role}</span>
+            </div>
+
+            <section className="case-block">
+              <h4>Overview</h4>
+              <div className="case-block-body">
+                <p>{current.overview}</p>
+              </div>
+            </section>
+
+            <section className="case-block">
+              <h4>Problem</h4>
+              <div className="case-block-body">
+                <p>{current.problem}</p>
+              </div>
+            </section>
+
+            <section className="case-block">
+              <h4>Approach</h4>
+              <div className="case-block-body">
+                <ul className="case-bullets">
+                  {current.approach.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+
+            <section className="case-block">
+              <h4>Outcome</h4>
+              <div className="case-block-body">
+                <ul className="case-bullets">
+                  {current.outcome.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+
+            <section className="case-block case-stack-block">
+              <h4>Tech Stack</h4>
+              <div className="case-block-body">
+                <p className="case-stack">{current.stack}</p>
+              </div>
+            </section>
+          </article>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ExperiencePage() {
+  const current = caseStudies.ddcmts;
+
+  return (
+    <div className="case-page experience-case-page">
+      <h2>Experience</h2>
+
+      <div className="case-layout">
+        <div className="case-visual-column">
+          <div className="case-device desktop-device desktop-reveal ddcmts-device">
+            <div className="device-screen">
+              <img src={current.image} alt={current.imageAlt} loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+
+        <div className="case-content-column">
+          <article className="case-detail-card">
+            <div className="case-detail-head">
+              <h3>Technical Contributor</h3>
+              <span className="case-role">District Planning Office, Kannur</span>
+            </div>
+
+            <section className="case-block">
+              <h4>Overview</h4>
+              <div className="case-block-body">
+                <p>
+                  Worked on a government-focused digital platform to improve the way official
+                  meeting workflows are recorded, followed up, and reviewed.
+                </p>
+              </div>
+            </section>
+
+            <section className="case-block">
+              <h4>Responsibilities</h4>
+              <div className="case-block-body">
+                <ul className="case-bullets">
+                  <li>Developed a Minutes Tracker System to digitize and manage official meeting records.</li>
+                  <li>Designed features for storing, retrieving, and organizing meeting minutes efficiently.</li>
+                  <li>Implemented tracking of actions, deadlines, and updates from meetings.</li>
+                  <li>Collaborated in a 4-member team to build and test the system.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section className="case-block">
+              <h4>Outcome</h4>
+              <div className="case-block-body">
+                <p>
+                  Improved operational clarity in minute tracking and enabled faster follow-ups
+                  for action items and deadlines in official workflows.
+                </p>
+              </div>
+            </section>
+
+            <section className="case-block case-stack-block">
+              <h4>Tech Stack</h4>
+              <div className="case-block-body">
+                <p className="case-stack">React, Django, PostgreSQL</p>
+              </div>
+            </section>
+          </article>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ================= CERTIFICATIONS ================= */
 
 function CertificationsPage() {
@@ -602,6 +843,18 @@ function ContactPage() {
             </a>
           </div>
 
+          {/* Instagram */}
+          <div className="contact-item">
+            <FaInstagram />
+            <a
+              href="https://www.instagram.com/agnay__k/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
+            </a>
+          </div>
+
         </div>
       </div>
 
@@ -758,6 +1011,8 @@ export default function App() {
         return <About page={page} key="about" />;
       case "works":
         return <WorksPage key="works" />;
+      case "case-studies":
+        return <CaseStudiesPage key="case-studies" />;
       case "experience":
         return <ExperiencePage key="experience" />;
       case "education":
